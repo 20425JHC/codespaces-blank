@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}TV Shows - GoodViews{% endblock %}
+
+{% block content %}
+<ul>
+    {% for x in tv_shows %}
+        <li>{{ x.tv_shows }} {{ x.description }} {{ x.poster }} {{ x.trailer }} {{ x.year_of_release }} {{ x.number_of_seasons }} {{ x.age_rating}} {{ x.genre }} {{ x.director }} {{ x.actors }}</li>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock %}

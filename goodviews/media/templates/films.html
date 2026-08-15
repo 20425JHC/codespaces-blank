@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Films - GoodViews{% endblock %}
+
+{% block content %}
+<ul>
+    {% for x in films %}
+        <li>{{ x.films }} {{ x.description }} {{ x.poster }} {{ x.trailer }} {{ x.year_of_release }} {{ x.runtime }} {{ x.age_rating}} {{ x.genre }} {{ x.director }} {{ x.actors }}</li>
+    {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}
