@@ -5,6 +5,10 @@ from .models import films as FilmsModel, tv_shows as TVShowsModel
 def home(request):
     return render(request, 'home.html')
 
+#Good views
+def goodviews(request):
+    return render(request, 'goodviews.html')
+
 #films page
 def films(request):
     all_films = FilmsModel.objects.all()

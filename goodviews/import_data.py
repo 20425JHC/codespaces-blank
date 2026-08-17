@@ -10,7 +10,7 @@ django.setup()
 #import films, tv_shows, age_rating and genre from csv files
 from media.models import age_rating, films, genre, tv_shows
 
-#Functions:
+#Importing data functions for each table:
 #age rating:
 def import_age_rating(file_path):
     with open(file_path, 'r') as file:
