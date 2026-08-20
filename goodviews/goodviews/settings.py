@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#my code:
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.github.dev',
+    'https://localhost:8000',
+]
+#/my code
 
 # Application definition
 
