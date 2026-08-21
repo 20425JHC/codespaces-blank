@@ -3,11 +3,25 @@
 {% block title %}TV Shows - GoodViews{% endblock %}
 
 {% block content %}
-<ul>
-    {% for x in tv_shows %}
-        <li>{{ x.tv_shows }} {{ x.description }} {{ x.poster }} {{ x.trailer }} {{ x.year_of_release }} {{ x.number_of_seasons }} {{ x.age_rating}} {{ x.genre }} {{ x.director }} {{ x.actors }}</li>
-    {% endfor %}
-</ul>
+
+<div id="container" class="grid">
+
+{% for x in tv_shows %}   
+  <div class="card">   
+    <img src="{{ x.poster }} alt="{{ x.tv_shows }}>
+    <div class="container">    
+      <h4><b>{{x.tv_shows}}</b></h4>
+      <p>{{ x.description }}</p>
+      <a href>{{ x.trailer }}</a>
+      <p>{{ x.year_of_release }}</p>
+      <p>{{ x.number_of_seasons }}</p>
+      <p>{{ x.age_rating }}</p>
+      <p>{{ x.genre }}</p>
+      <p>{{ x.director }}</p>
+      <p>{{ x.actors }}</p>
+    </div>
+  </div>
+{% endfor %}
 
 
 

@@ -16,9 +16,11 @@ def import_age_rating(file_path):
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            age_rating.objects.get_or_create(
+            age_rating.objects.update_or_create(
                 id=row['id'],
-                age_rating=row['age_rating']
+                defaults={
+                    'age_rating' : row['age_rating']
+                }
             )
     print("✓ Age ratings imported!")        
 
@@ -28,9 +30,11 @@ def import_genre(file_path):
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            genre.objects.get_or_create(
+            genre.objects.update_or_create(
                 id=row['id'],
-                genre=row['genre']
+                defaults={
+                    'genre' : row['genre']
+                }
             )
     print('✓ Genres imported!')
 
@@ -39,18 +43,20 @@ def import_films(file_path):
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            films.objects.get_or_create(
+            films.objects.update_or_create(
                 id=row['id'],
-                films=row['films'],
-                description=row['description'],
-                poster=row['poster'],
-                trailer=row['trailer'],
-                year_of_release=row['year_of_release'],
-                runtime=row['runtime'],
-                age_rating_id=row['age_ratingID'],
-                genre_id=row['genreID'],
-                director=row['director'],
-                actors=row['actors']
+                defaults={
+                    'films' : row['films'],
+                    'description' : row['description'],
+                    'poster' : row['poster'],
+                    'trailer' : row['trailer'],
+                    'year_of_release' : row['year_of_release'],
+                    'runtime' : row['runtime'],
+                    'age_rating_id' : row['age_ratingID'],
+                    'genre_id' : row['genreID'],
+                    'director' : row['director'],
+                    'actors' : row['actors']
+                }
             )
     print("✓ Films imported!")
 
@@ -59,18 +65,20 @@ def import_tv_shows(file_path):
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            tv_shows.objects.get_or_create(
+            tv_shows.objects.update_or_create(
                 id=row['id'],
-                tv_shows=row['tv_shows'],
-                description=row['description'],
-                poster=row['poster'],
-                trailer=row['trailer'],
-                year_of_release=row['year_of_release'],
-                number_of_seasons=row['number_of_seasons'],
-                age_rating_id=row['age_ratingID'],
-                genre_id=row['genreID'],
-                director=row['director'],
-                actors=row['actors']
+                defaults={
+                    'tv_shows' : row['tv_shows'],
+                    'description' : row['description'],
+                    'poster' : row['poster'],
+                    'trailer' : row['trailer'],
+                    'year_of_release' : row['year_of_release'],
+                    'number_of_seasons' : row['number_of_seasons'],
+                    'age_rating_id' : row['age_ratingID'],
+                    'genre_id' : row['genreID'],
+                    'director' : row['director'],
+                    'actors' : row['actors']
+                }
             )
     print("✓ TV shows imported!")
 

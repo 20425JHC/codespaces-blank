@@ -3,11 +3,38 @@
 {% block title %}Films - GoodViews{% endblock %}
 
 {% block content %}
-<ul>
-    {% for x in films %}
-        <li>{{ x.films }} {{ x.description }} {{ x.poster }} {{ x.trailer }} {{ x.year_of_release }} {{ x.runtime }} {{ x.age_rating}} {{ x.genre }} {{ x.director }} {{ x.actors }}</li>
-    {% endfor %}
-</ul>
+
+<div id="container" class="grid">
+
+{% for x in films %}   
+  <div class="card">   
+    <img src="{{ x.poster }} alt="{{ x.films }}>
+    <div class="container">    
+      <h4><b>{{x.films}}</b></h4>
+      <p>{{ x.description }}</p>
+      <iframe 
+        width="560" 
+        height="315" 
+        src={{ x.trailer }} 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+        </iframe>
+      <p>{{ x.year_of_release }}</p>
+      <p>{{ x.runtime }}</p>
+      <p>{{ x.age_rating }}</p>
+      <p>{{ x.genre }}</p>
+      <p>{{ x.director }}</p>
+      <p>{{ x.actors }}</p>
+    </div>
+  </div>
+{% endfor %}
+
+
+
+</div>
 
 
 
