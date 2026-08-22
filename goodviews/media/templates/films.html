@@ -4,6 +4,23 @@
 
 {% block content %}
 
+<div class="dropdown">
+  <button class="dropbtn">Genres</button>
+  <div class="dropdown-content">
+    <button class="btn" onclick="filterGenre('Fantasy')">Fantasy</button>
+    <button class="btn" onclick="filterGenre('Contemporary')">Contemporary</button>
+    <button class="btn" onclick="filterGenre('Coming_of_Age')">Coming of Age</button> 
+    <button class="btn" onclick="filterGenre('Romance')">Romance</button>
+    <button class="btn" onclick="filterGenre('Action')">Action</button>
+    <button class="btn" onclick="filterGenre('Drama')">Drama</button>
+    <button class="btn" onclick="filterGenre('Historical')">Historical</button>
+    <button class="btn" onclick="filterGenre('Science_Fiction')">Science Fiction</button>
+    <button class="btn" onclick="filterGenre('Documentary')">Documentary</button>
+    <button class="btn" onclick="filterGenre('Dystopian')">Dystopian</button>
+    <button class="btn" onclick="filterGenre('Comedy')">Comedy</button>
+  </div>
+</div>
+
 <div id="container" class="grid">
 
 {% for x in films %}   
