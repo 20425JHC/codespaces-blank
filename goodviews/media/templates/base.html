@@ -7,7 +7,9 @@
     
     <title>{% block title %}GoodViews{% endblock %}</title>
     
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     
     <link rel="icon" type="image/" href="{% static 'images/logo.png' %}">
 
@@ -16,7 +18,7 @@
 
     <nav>
         <a href="/">Home</a>
-        <a href="/goodviews">GoodViews</a>
+        <a href="/contact_us">Contact Us</a>
         <a href="/films">Films</a>
         <a href="/tv_shows">TV Shows</a>
         <a href="/sign_up">Sign Up</a> 

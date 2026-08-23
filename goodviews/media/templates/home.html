@@ -1,9 +1,77 @@
 {% extends 'base.html' %}
 {% block title %}Home - GoodViews{% endblock %}
-    <link rel="stylesheet" href="/style">
 
 {% block content%}
-    <h1>Hello World!</h1>
-    <p>Welcome to my first Django project!</p>
+    <div class="container-fluid p-5 bg-primary text-white text-center">
+        <h1>GoodViews</h1>
+        <p>Welcome!</p> 
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4">
+                <h1>Welcome to GoodViews</h1>
+                <p>Find new films and shows to watch when you can't find any!</p>
+            </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for x in films %} 
+            <div class="col">
+                <div class="card" style="width: 200px">   
+                    <img class="card-img-top" src="{{ x.poster }} alt="{{ x.films }}>
+                    <div class="card-body">    
+                    <h4 class="card-title"><b>{{x.films}}</b></h4>
+                    <p class="card-text">{{ x.description }}</p>
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="{{ x.trailer }}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                    </iframe>
+                <p>Year: {{ x.year_of_release }}</p>
+                <p>Runtime: {{ x.runtime }}</p>
+                <p>Age Rating: {{ x.age_rating }}</p>
+                <p>Genre: {{ x.genre }}</p>
+                <p>Director: {{ x.director }}</p>
+                <p>Cast: {{ x.actors }}</p>
+                </div>
+            </div>
+        </div>
+            {% endfor %}
+
+        {% for x in tv_shows %}   
+            <div class="row row-cols-1 row-cols-md-3 g-4">  
+                <div class="col">
+                    <div class="card" style="width: 200px">   
+                    <img class="card-img-top" src="{{ x.poster }} alt="{{ x.tv_shows }}>
+                    <div class="card-body">    
+                    <h4 class="card-title"><b>{{ x.tv_shows }}</b></h4>
+                    <p class="card-text">{{ x.description }}</p>
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="{{ x.trailer }}" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                        </iframe>
+                    <p>Year: {{ x.year_of_release }}</p>
+                    <p>Seasons: {{ x.number_of_seasons }}</p>
+                    <p>Age Rating: {{ x.age_rating }}</p>
+                    <p>Genre: {{ x.genre }}</p>
+                    <p>Director: {{ x.director }}</p>
+                    <p>Cast: {{ x.actors }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

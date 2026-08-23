@@ -4,43 +4,68 @@
 
 {% block content %}
 
+<!-- Dynamic Genres Dropdown -->
 <div class="dropdown">
   <button class="dropbtn">Genres</button>
   <div class="dropdown-content">
-    <a href="{% url 'tv_shows' %}" class="btn">All Genres</a>
-    <a href="?genre=Fantasy" class="btn">Fantasy</a>
-    <a href="?genre=Contemporary" class="btn">Contemporary</a>
-    <a href="?genre=Coming of Age" class="btn">Coming of Age</a> 
-    <a href="?genre=Romance" class="btn">Romance</a>
-    <a href="?genre=Action" class="btn">Action</a>
-    <a href="?genre=Drama" class="btn">Drama</a>
-    <a href="?genre=Historical" class="btn">Historical</a>
-    <a href="?genre=Science Fiction" class="btn">Science Fiction</a>
-    <a href="?genre=Documentary" class="btn">Documentary</a>
-    <a href="?genre=Dystopian" class="btn">Dystopian</a>
-    <a href="?genre=Comedy" class="btn">Comedy</a>
+    <a href="?{% if selected_age_rating %}age_rating={{ selected_age_rating }}{% endif %}" class="btn">All Genres</a>
+    
+    {% for g in genres %}
+      <a href="?genre={{ g.id }}{% if selected_age_rating %}&age_rating={{ selected_age_rating }}{% endif %}" class="btn">
+        {{ g.genre }}
+      </a>
+    {% endfor %}
   </div>
 </div>
 
-<div id="container" class="grid">
+<!-- Dynamic Age Ratings Dropdown -->
+<div class="dropdown">
+  <button class="dropbtn">Age Rating</button>
+  <div class="dropdown-content">
+    <a href="?{% if selected_genre %}genre={{ selected_genre }}{% endif %}" class="btn">All Ages</a>
+    
+    {% for ar in age_ratings %}
+      <a href="?age_rating={{ ar.id }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}" class="btn">
+        {{ ar.age_rating }}
+      </a>
+    {% endfor %}
+  </div>
+</div>
 
-{% for x in tv_shows %}   
-  <div class="card">   
-    <img src="{{ x.poster }} alt="{{ x.tv_shows }}>
-    <div class="container">    
-      <h4><b>{{x.tv_shows}}</b></h4>
-      <p>{{ x.description }}</p>
-      <a href>{{ x.trailer }}</a>
-      <p>{{ x.year_of_release }}</p>
-      <p>{{ x.number_of_seasons }}</p>
-      <p>{{ x.age_rating }}</p>
-      <p>{{ x.genre }}</p>
-      <p>{{ x.director }}</p>
-      <p>{{ x.actors }}</p>
+<!-- Reset All Button -->
+{% if selected_genre or selected_age_rating %}
+  <a href="{% url 'films' %}" class="btn">Reset Filters</a>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for x in tv_shows %}   
+  <div class="col">
+    <div class="card" style="width: 200px">   
+      <img class="card-img-top" src="{{ x.poster }} alt="{{ x.tv_shows }}>
+      <div class="card-body">    
+      <h4 class="card-title"><b>{{ x.tv_shows }}</b></h4>
+      <p class="card-text">{{ x.description }}</p>
+      <iframe 
+        width="560" 
+        height="315" 
+        src="{{ x.trailer }}" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+        </iframe>
+      <p>Year: {{ x.year_of_release }}</p>
+      <p>Seasons: {{ x.number_of_seasons }}</p>
+      <p>Age Rating: {{ x.age_rating }}</p>
+      <p>Genre: {{ x.genre }}</p>
+      <p>Director: {{ x.director }}</p>
+      <p>Cast: {{ x.actors }}</p>
     </div>
   </div>
+</div>
 {% empty %}
-  <p>No films found for this genre.</p>
+  <p>No shows found for this criteria.</p>
 {% endfor %}
 
 
