@@ -4,36 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
     
     <title>{% block title %}GoodViews{% endblock %}</title>
     
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
     <link rel="icon" type="image/" href="{% static 'images/logo.png' %}">
 
+
     </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-    <nav>
-        <a href="/">Home</a>
-        <a href="/contact_us">Contact Us</a>
-        <a href="/films">Films</a>
-        <a href="/tv_shows">TV Shows</a>
-        <a href="/sign_up">Sign Up</a> 
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/static/images/title.png" alt="" height="175">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto gap-4">
+                <li class="nav-item">
+                <a class="nav-link h3" href="/contact_us"><b>Contact Us</b></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link h3" href="/films"><b>Films</b></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link h3" href="/tv_shows"><b>TV Shows</b></a>
+                </li>
+            </ul>
+            </div>
+        </div>
+</nav>
 
-    </nav>
-
-
-    <main>
+    <main class="flex-grow-1">
         {% block content %}
         {% endblock %}
     </main>
-
-    <footer>
-        <p>&copy; GoodViews. All rights reserved.</p>
-    </footer>
-
 </body>
+    <!-- Footer -->
+<footer class="text-center text-lg-start bg-body-tertiary mt-5">
+
+  <!-- Section: Links -->
+  <section class="py-4">
+    <div class="container text-center text-md-start">
+      <!-- Grid row -->
+      <div class="row mt-3">
+
+        <!-- Grid column: About -->
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-film me-2"></i>GoodViews
+          </h6>
+          <p>
+            Find your new favorite movies and TV shows with us!
+          </p>
+        </div>
+
+        <!-- Grid column: Links -->
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful Links
+          </h6>
+          <p><a class="text-reset text-decoration-none" href="/">Home</a></p>
+          <p><a class="text-reset text-decoration-none" href="/contact_us">Contact Us</a></p>
+          <p><a class="text-reset text-decoration-none" href="/films">Films</a></p>
+          <p><a class="text-reset text-decoration-none" href="/tv_shows">TV Shows</a></p>
+        </div>
+
+        <!-- Grid column: Contact -->
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> Cinema City, TV 90210</p>
+          <p><i class="fas fa-envelope me-3"></i> support@goodviews.com</p>
+        </div>
+
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    <p class="m-0">&copy; GoodViews. All rights reserved.</p>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+
 </html>

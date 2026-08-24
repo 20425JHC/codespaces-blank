@@ -3,73 +3,115 @@
 {% block title %}Films - GoodViews{% endblock %}
 
 {% block content %}
+<br>
 
-<!-- Dynamic Genres Dropdown -->
-<div class="dropdown">
-  <button class="dropbtn">Genres</button>
-  <div class="dropdown-content">
-    <a href="?{% if selected_age_rating %}age_rating={{ selected_age_rating }}{% endif %}" class="btn">All Genres</a>
-    
-    {% for g in genres %}
-      <a href="?genre={{ g.id }}{% if selected_age_rating %}&age_rating={{ selected_age_rating }}{% endif %}" class="btn">
-        {{ g.genre }}
-      </a>
-    {% endfor %}
-  </div>
+<div class="container mt-5">
+
+<div class="btn-group gap-4"> 
+  <!-- Dynamic Genres Dropdown --> 
+  <div class="dropdown">
+    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Genres</button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="?{% if selected_age_rating %}age_rating={{ selected_age_rating }}{% endif %}">All Genres</a></li>
+        {% for g in genres %}
+          <li><a class="dropdown-item" href="?genre={{ g.id }}{% if selected_age_rating %}&age_rating={{ selected_age_rating }}{% endif %}">{{ g.genre }}</a></li>
+        {% endfor %}
+        </ul>
+      </div>
+
+  <!-- Dynamic Age Ratings Dropdown -->
+  <div class="dropdown">
+    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Age Rating</button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="?{% if selected_genre %}genre={{ selected_genre }}{% endif %}">All Ages</a></li>
+      {% for ar in age_ratings %}
+        <li><a class="dropdown-item" href="?age_rating={{ ar.id }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}">{{ ar.age_rating }}</a></li>
+        </a>
+      {% endfor %}
+    </ul>
+    </div>
+
+  <!-- Reset All Button -->
+  {% if selected_genre or selected_age_rating %}
+    <a href="{% url 'films' %}" class="btn">Reset Filters</a>
+  {% endif %}
 </div>
 
-<!-- Dynamic Age Ratings Dropdown -->
-<div class="dropdown">
-  <button class="dropbtn">Age Rating</button>
-  <div class="dropdown-content">
-    <a href="?{% if selected_genre %}genre={{ selected_genre }}{% endif %}" class="btn">All Ages</a>
-    
-    {% for ar in age_ratings %}
-      <a href="?age_rating={{ ar.id }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}" class="btn">
-        {{ ar.age_rating }}
-      </a>
-    {% endfor %}
-  </div>
-</div>
-
-<!-- Reset All Button -->
-{% if selected_genre or selected_age_rating %}
-  <a href="{% url 'films' %}" class="btn">Reset Filters</a>
-{% endif %}
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row g-4 mt-3">
 {% for x in films %} 
+  <!-- CARD COLUMN -->
   <div class="col">
-    <div class="card" style="width: 200px">   
-        <img class="card-img-top" src="{{ x.poster }} alt="{{ x.films }}>
-        <div class="card-body">    
-        <h4 class="card-title"><b>{{x.films}}</b></h4>
-        <p class="card-text">{{ x.description }}</p>
-      <iframe 
-        width="560" 
-        height="315" 
-        src="{{ x.trailer }}" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-        </iframe>
-      <p>Year: {{ x.year_of_release }}</p>
-      <p>Runtime: {{ x.runtime }}</p>
-      <p>Age Rating: {{ x.age_rating }}</p>
-      <p>Genre: {{ x.genre }}</p>
-      <p>Director: {{ x.director }}</p>
-      <p>Cast: {{ x.actors }}</p>
+    <!-- Clickable Card targeting modal by ID -->
+    <div class="card h-100 shadow-sm custom-card" 
+         data-bs-toggle="modal" 
+         data-bs-target="#filmModal{{ x.id }}" 
+         style="width: 206px;cursor: pointer;"
+         > 
+      
+      <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.films }}" style="width: 200px; object-fit: cover;">
+      <div class="card-body text-center">    
+        <h5 class="card-title m-0"><b>{{ x.films }}</b></h5>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- LARGE POP-UP MODAL -->
+  <div class="modal fade" id="filmModal{{ x.id }}" tabindex="-1" aria-labelledby="modalLabel{{ x.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalLabel{{ x.id }}"><b>{{ x.films }}</b></h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            
+            <!-- Trailer Video (Left Side) -->
+            <div class="col-lg-7 mb-3 mb-lg-0">
+              <div class="ratio ratio-16x9">
+                <iframe 
+                  src="{{ x.trailer }}"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen>
+
+                </iframe>
+              </div>
+            </div>
+
+            <!-- Film Information (Right Side) -->
+            <div class="col-lg-5">
+              <p><strong>Description:</strong> {{ x.description }}</p>
+              <hr>
+              <p><strong>Year of Release:</strong> {{ x.year_of_release }}</p>
+              <p><strong>Runtime:</strong> {{ x.runtime }}</p>
+              <p><strong>Age Rating:</strong> {{ x.age_rating }}</p>
+              <p><strong>Genre:</strong> {{ x.genre }}</p>
+              <p><strong>Director:</strong> {{ x.director }}</p>
+              <p><strong>Cast:</strong> {{ x.actors }}</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
 {% empty %}
-  <p>No films found for this criteria.</p>
+  <div class="col-12">
+    <p>No films found for this criteria.</p>
+  </div>
 {% endfor %}
-
-
 </div>
-
+</div>
 
 {% endblock %}

@@ -2,75 +2,153 @@
 {% block title %}Home - GoodViews{% endblock %}
 
 {% block content%}
-    <div class="container-fluid p-5 bg-primary text-white text-center">
-        <h1>GoodViews</h1>
-        <p>Welcome!</p> 
-    </div>
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-sm-4">
-                <h1>Welcome to GoodViews</h1>
-                <p>Find new films and shows to watch when you can't find any!</p>
-            </div>
+            <h1>Welcome to GoodViews</h1>
+            <p>Find new films and shows to watch when you can't find any!</p>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for x in films %} 
-            <div class="col">
-                <div class="card" style="width: 200px">   
-                    <img class="card-img-top" src="{{ x.poster }} alt="{{ x.films }}>
-                    <div class="card-body">    
-                    <h4 class="card-title"><b>{{x.films}}</b></h4>
-                    <p class="card-text">{{ x.description }}</p>
-                <iframe 
-                    width="560" 
-                    height="315" 
-                    src="{{ x.trailer }}" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen>
-                    </iframe>
-                <p>Year: {{ x.year_of_release }}</p>
-                <p>Runtime: {{ x.runtime }}</p>
-                <p>Age Rating: {{ x.age_rating }}</p>
-                <p>Genre: {{ x.genre }}</p>
-                <p>Director: {{ x.director }}</p>
-                <p>Cast: {{ x.actors }}</p>
+        <div class="row g-4 mt-3">
+            <h3>Latest Films!</h3>
+        {% for x in films %} 
+        <!-- CARD COLUMN -->
+        <div class="col">
+            <!-- Clickable Card targeting modal by ID -->
+            <div class="card h-100 shadow-sm custom-card" 
+                data-bs-toggle="modal" 
+                data-bs-target="#filmModal{{ x.id }}" 
+                style="width: 206px;cursor: pointer;"
+                > 
+            
+            <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.films }}" style="width: 200px; object-fit: cover;">
+            <div class="card-body text-center">    
+                <h5 class="card-title m-0"><b>{{ x.films }}</b></h5>
+            </div>
+            </div>
+        </div>
+
+        <!-- LARGE POP-UP MODAL -->
+        <div class="modal fade" id="filmModal{{ x.id }}" tabindex="-1" aria-labelledby="modalLabel{{ x.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                <h4 class="modal-title" id="modalLabel{{ x.id }}"><b>{{ x.films }}</b></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <div class="modal-body">
+                <div class="row">
+                    
+                    <!-- Trailer Video (Left Side) -->
+                    <div class="col-lg-7 mb-3 mb-lg-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe 
+                        src="{{ x.trailer }}"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+
+                        </iframe>
+                    </div>
+                    </div>
+
+                    <!-- Film Information (Right Side) -->
+                    <div class="col-lg-5">
+                    <p><strong>Description:</strong> {{ x.description }}</p>
+                    <hr>
+                    <p><strong>Year of Release:</strong> {{ x.year_of_release }}</p>
+                    <p><strong>Runtime:</strong> {{ x.runtime }}</p>
+                    <p><strong>Age Rating:</strong> {{ x.age_rating }}</p>
+                    <p><strong>Genre:</strong> {{ x.genre }}</p>
+                    <p><strong>Director:</strong> {{ x.director }}</p>
+                    <p><strong>Cast:</strong> {{ x.actors }}</p>
+                    </div>
+
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
             </div>
         </div>
             {% endfor %}
 
-        {% for x in tv_shows %}   
-            <div class="row row-cols-1 row-cols-md-3 g-4">  
-                <div class="col">
-                    <div class="card" style="width: 200px">   
-                    <img class="card-img-top" src="{{ x.poster }} alt="{{ x.tv_shows }}>
-                    <div class="card-body">    
-                    <h4 class="card-title"><b>{{ x.tv_shows }}</b></h4>
-                    <p class="card-text">{{ x.description }}</p>
-                    <iframe 
-                        width="560" 
-                        height="315" 
-                        src="{{ x.trailer }}" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                        </iframe>
-                    <p>Year: {{ x.year_of_release }}</p>
-                    <p>Seasons: {{ x.number_of_seasons }}</p>
-                    <p>Age Rating: {{ x.age_rating }}</p>
-                    <p>Genre: {{ x.genre }}</p>
-                    <p>Director: {{ x.director }}</p>
-                    <p>Cast: {{ x.actors }}</p>
-                    </div>
-                </div>
+        <div class="row g-4 mt-3">
+            <h3>Latest Shows!</h3>
+        {% for x in tv_shows %} 
+        <!-- CARD COLUMN -->
+        <div class="col">
+            <!-- Clickable Card targeting modal by ID -->
+            <div class="card h-100 shadow-sm custom-card" 
+                data-bs-toggle="modal" 
+                data-bs-target="#tv_showModal{{ x.id }}" 
+                style="width: 206px;cursor: pointer;"
+                > 
+            
+            <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.tv_shows }}" style="width: 200px; object-fit: cover;">
+            <div class="card-body text-center">    
+                <h5 class="card-title m-0"><b>{{ x.tv_shows }}</b></h5>
             </div>
-            {% endfor %}
+            </div>
+        </div>
+
+        <!-- LARGE POP-UP MODAL -->
+        <div class="modal fade" id="tv_showModal{{ x.id }}" tabindex="-1" aria-labelledby="modalLabel{{ x.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                <h4 class="modal-title" id="modalLabel{{ x.id }}"><b>{{ x.tv_shows }}</b></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                <div class="row">
+                    
+                    <!-- Trailer Video (Left Side) -->
+                    <div class="col-lg-7 mb-3 mb-lg-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe 
+                        src="{{ x.trailer }}"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+
+                        </iframe>
+                    </div>
+                    </div>
+
+                    <!-- Film Information (Right Side) -->
+                    <div class="col-lg-5">
+                    <p><strong>Description:</strong> {{ x.description }}</p>
+                    <hr>
+                    <p><strong>Year of Release:</strong> {{ x.year_of_release }}</p>
+                    <p><strong>Seasons:</strong> {{ x.number_of_seasons }}</p>
+                    <p><strong>Age Rating:</strong> {{ x.age_rating }}</p>
+                    <p><strong>Genre:</strong> {{ x.genre }}</p>
+                    <p><strong>Director:</strong> {{ x.director }}</p>
+                    <p><strong>Cast:</strong> {{ x.actors }}</p>
+                    </div>
+
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 

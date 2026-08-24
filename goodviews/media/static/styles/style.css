@@ -1,0 +1,27 @@
+nav{
+    background: #c6e3f8;
+    color: #92140C;
+}
+
+body{
+    color: #1D3354;
+    font-family: 'Courier Prime', Courier, monospace;
+    }
+
+.btn{
+    background: #98CEB5;
+}
+.card{
+    background: #98CEB5;
+    border-color: #92140C;
+    border-width: 3px;
+}
+footer{
+    background-color: #1D3354;
+    color: #ffffff;
+}
+
+.modal-content{
+    background-color: #92140C;
+    color: #ffffff;
+}
