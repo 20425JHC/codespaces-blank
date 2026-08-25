@@ -3,12 +3,10 @@
 {% block title %}Films - GoodViews{% endblock %}
 
 {% block content %}
-<br>
-
 <div class="container mt-5">
 
 <div class="btn-group gap-4"> 
-  <!-- Dynamic Genres Dropdown --> 
+  <!-- Dynamic Genres Dropdown -->
   <div class="dropdown">
     <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Genres</button>
       <ul class="dropdown-menu">
@@ -37,7 +35,7 @@
   {% endif %}
 </div>
 
-<div class="row g-4 mt-3">
+<div class="row g-4 mt-auto">
 {% for x in films %} 
   <!-- CARD COLUMN -->
   <div class="col">

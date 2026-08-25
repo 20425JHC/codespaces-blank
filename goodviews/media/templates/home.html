@@ -5,11 +5,14 @@
 
     <div class="container mt-5">
         <div class="row">
-            <h1>Welcome to GoodViews</h1>
-            <p>Find new films and shows to watch when you can't find any!</p>
+            <h1><b>Welcome to GoodViews!</b></h1>
+            <h5>This is your go-to hub for discovering new movies and TV shows. 
+        Designed for casual viewers and film enthusiasts alike, GoodViews makes it easy to explore entertainment options 
+        without the hassle of creating an account or navigating complicated features. Simply browse our collection, 
+        filter by genre or age rating, watch trailers, and get all the key details—from cast lists to runtime—to help you decide what to watch next.</h5>
 
         <div class="row g-4 mt-3">
-            <h3>Latest Films!</h3>
+            <h2><b>Latest Films!</b></h2>
         {% for x in films %} 
         <!-- CARD COLUMN -->
         <div class="col">
@@ -73,14 +76,14 @@
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
-
             </div>
             </div>
         </div>
             {% endfor %}
 
-        <div class="row g-4 mt-3">
-            <h3>Latest Shows!</h3>
+
+        <div class="row g-4 mt-5">
+            <h2><b>Latest Shows!</b></h2>
         {% for x in tv_shows %} 
         <!-- CARD COLUMN -->
         <div class="col">

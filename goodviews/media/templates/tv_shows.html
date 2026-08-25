@@ -3,8 +3,6 @@
 {% block title %}TV Shows - GoodViews{% endblock %}
 
 {% block content %}
-<br>
-
 <div class="container mt-5">
 
 <div class="btn-group gap-4"> 
@@ -33,7 +31,7 @@
 
   <!-- Reset All Button -->
   {% if selected_genre or selected_age_rating %}
-    <a href="{% url 'films' %}" class="btn">Reset Filters</a>
+    <a href="{% url 'tv_shows' %}" class="btn">Reset Filters</a>
   {% endif %}
 </div>
 

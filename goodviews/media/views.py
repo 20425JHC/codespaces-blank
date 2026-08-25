@@ -9,9 +9,6 @@ def home(request):
 
     all_films = FilmsModel.objects.filter(year_of_release__gte='2020').values()
     all_tv_shows = TVShowsModel.objects.filter(year_of_release__gte='2020').values()
-
-    all_films = FilmsModel.objects.all()
-    all_tv_shows = TVShowsModel.objects.all()
     
     context = {
         'films': all_films,
@@ -36,10 +33,10 @@ def films(request):
     # Build a dictionary for active filters
     filter_kwargs = {}
 
-    if selected_genre_id:
+    if selected_genre_id and selected_genre_id != '':
         filter_kwargs['genre_id'] = selected_genre_id
-        
-    if selected_age_rating_id:
+
+    if selected_age_rating_id and selected_age_rating_id != '':
         filter_kwargs['age_rating_id'] = selected_age_rating_id
 
     # 2. Unpack the dictionary into filter() using **
