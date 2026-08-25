@@ -1,3 +1,5 @@
+#my code
+#making sure that the stagings in the comit section are moderated so i don't have thousands of things to comit.
 .venv/
 *.pyc
 __pycache__/

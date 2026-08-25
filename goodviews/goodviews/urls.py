@@ -14,10 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+#importing admin and include to later use to set up url pattern paths
 from django.contrib import admin
 from django.urls import include, path
 
+#setting up url pattern routing. this helps the code to get information (from paths below) and display the website.
 urlpatterns = [
     path('', include('media.urls')),
     path('admin/', admin.site.urls),

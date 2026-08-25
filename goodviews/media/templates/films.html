@@ -1,72 +1,89 @@
+<!--calls base.html and shares properties like navbar, footer, styling and other things included in the base.-->
 {% extends 'base.html' %}
 
-{% block title %}Films - GoodViews{% endblock %}
+{% block title %}Films - GoodViews{% endblock %} <!--title-->
 
-{% block content %}
+<!--content in between this "block content" and the "endblock" fucntions are displayed on the website as 
+formatted by the base.html as base.html (parent file) calls on this file and dispalys infromation in this file onto the website  -->
+{% block content %} 
+
+<!--keeping information on this page inside a container so that the formatting is consistent with other pages. 
+  Formatting includes things such as margins and placement of teh main body of the page-->
 <div class="container mt-5">
 
-<div class="btn-group gap-4"> 
-  <!-- Dynamic Genres Dropdown -->
-  <div class="dropdown">
-    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Genres</button>
+  <!--creating a button group so buttons stay together-->
+  <div class="btn-group gap-4"> 
+
+    <!-- Dynamic Genres Dropdown: Dynamically creates dropdown options buttons for genres so I don't have to manually add each option in code, 
+     instead the code itself connects to the database and creates filter options to choose from and then filters through the database too.
+     Because of using dynamic loops, it can create filter options withouht manual updates, because it takes it directly from the databases.
+     It also connects to age_rating incase user want to filter through both at the same time-->
+    <div class="dropdown">
+      <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Genres</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="?{% if selected_age_rating %}age_rating={{ selected_age_rating }}{% endif %}">All Genres</a></li>
+          {% for g in genres %}
+            <li><a class="dropdown-item" href="?genre={{ g.id }}{% if selected_age_rating %}&age_rating={{ selected_age_rating }}{% endif %}">{{ g.genre }}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+
+    <!-- Dynamic Age Ratings Dropdown: Dynamically creates dropdown options buttons for age rating so I don't have to manually add each option in code, 
+     instead the code itself connects to the database and creates filter options to choose from and then filters through the database too. 
+     Because of using dynamic loops, it can create filter options withouht manual updates, because it takes it directly from the databases.
+     It also connects to genres incase user want to filter through both at the same time  -->
+    <div class="dropdown">
+      <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Age Rating</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="?{% if selected_age_rating %}age_rating={{ selected_age_rating }}{% endif %}">All Genres</a></li>
-        {% for g in genres %}
-          <li><a class="dropdown-item" href="?genre={{ g.id }}{% if selected_age_rating %}&age_rating={{ selected_age_rating }}{% endif %}">{{ g.genre }}</a></li>
+        <li><a class="dropdown-item" href="?{% if selected_genre %}genre={{ selected_genre }}{% endif %}">All Ages</a></li>
+        {% for ar in age_ratings %}
+          <li><a class="dropdown-item" href="?age_rating={{ ar.id }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}">{{ ar.age_rating }}</a></li>
+          </a>
         {% endfor %}
-        </ul>
+      </ul>
       </div>
 
-  <!-- Dynamic Age Ratings Dropdown -->
-  <div class="dropdown">
-    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">Age Rating</button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="?{% if selected_genre %}genre={{ selected_genre }}{% endif %}">All Ages</a></li>
-      {% for ar in age_ratings %}
-        <li><a class="dropdown-item" href="?age_rating={{ ar.id }}{% if selected_genre %}&genre={{ selected_genre }}{% endif %}">{{ ar.age_rating }}</a></li>
-        </a>
-      {% endfor %}
-    </ul>
-    </div>
-
-  <!-- Reset All Button -->
-  {% if selected_genre or selected_age_rating %}
-    <a href="{% url 'films' %}" class="btn">Reset Filters</a>
-  {% endif %}
-</div>
-
-<div class="row g-4 mt-auto">
-{% for x in films %} 
-  <!-- CARD COLUMN -->
-  <div class="col">
-    <!-- Clickable Card targeting modal by ID -->
-    <div class="card h-100 shadow-sm custom-card" 
-         data-bs-toggle="modal" 
-         data-bs-target="#filmModal{{ x.id }}" 
-         style="width: 206px;cursor: pointer;"
-         > 
-      
-      <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.films }}" style="width: 200px; object-fit: cover;">
-      <div class="card-body text-center">    
-        <h5 class="card-title m-0"><b>{{ x.films }}</b></h5>
-      </div>
-    </div>
+    <!-- Reset All Button: resets the genre and age rating filters so users can choose new varried filter options -->
+    {% if selected_genre or selected_age_rating %}
+      <a href="{% url 'films' %}" class="btn">Reset Filters</a>
+    {% endif %}
   </div>
 
-  <!-- LARGE POP-UP MODAL -->
+
+  <!--FILM CARDS-->
+  <!--creating columns for cards and their placements-->
+  <div class="row g-4 mt-auto">
+  {% for x in films %} <!--calling films database to display films-->
+    <!-- CARD COLUMN -->
+    <div class="col">
+      <!-- Clickable Card targeting modal by ID: creating cards with poster and name of film to be shown and to be able to be clicked to expand the card and display the modal -->
+      <div class="card h-100 shadow-sm custom-card" 
+          data-bs-toggle="modal" 
+          data-bs-target="#filmModal{{ x.id }}" 
+          style="width: 206px;cursor: pointer;"
+          > 
+        <!--displaying the poster and film title. Uses dynamic functions (x.film) to adapt to database changes and create cards without manual work-->
+        <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.films }}" style="width: 200px; object-fit: cover;">
+        <div class="card-body text-center">    
+          <h5 class="card-title m-0"><b>{{ x.films }}</b></h5>
+        </div>
+      </div>
+    </div>
+
+  <!-- LARGE POP-UP MODAL: once clicked on card, it expands and displays a modal where the trailer of the film and other information can be seen -->
   <div class="modal fade" id="filmModal{{ x.id }}" tabindex="-1" aria-labelledby="modalLabel{{ x.id }}" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         
         <div class="modal-header">
           <h4 class="modal-title" id="modalLabel{{ x.id }}"><b>{{ x.films }}</b></h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><!--close button-->
         </div>
 
         <div class="modal-body">
           <div class="row">
             
-            <!-- Trailer Video (Left Side) -->
+            <!-- Trailer Video (Left Side): Dynamically connects to the trailers of each film for each film's modal and displays the embedded trailer on the left side of the modal-->
             <div class="col-lg-7 mb-3 mb-lg-0">
               <div class="ratio ratio-16x9">
                 <iframe 
@@ -81,7 +98,7 @@
               </div>
             </div>
 
-            <!-- Film Information (Right Side) -->
+            <!-- Film Information (Right Side): dynamically retreives information from the database for individual films and displays them on the right side of the modal -->
             <div class="col-lg-5">
               <p><strong>Description:</strong> {{ x.description }}</p>
               <hr>
@@ -97,19 +114,21 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button><!--clos button to go out of the modal back to the rest of the film cards-->
         </div>
 
       </div>
     </div>
   </div>
   
-{% empty %}
-  <div class="col-12">
-    <p>No films found for this criteria.</p>
+  <!--if no cards in specific genre or age-rating, tells user that there are no films in the specific criteria-->
+  {% empty %}
+    <div class="col-12">
+      <p>Sorry! No films found for this criteria.</p>
+    </div>
+  {% endfor %}
   </div>
-{% endfor %}
-</div>
+
 </div>
 
 {% endblock %}

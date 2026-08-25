@@ -1,9 +1,16 @@
+<!--calls base.html and shares properties like navbar, footer, styling and other things included in the base.-->
 {% extends 'base.html' %}
-{% block title %}Home - GoodViews{% endblock %}
 
+{% block title %}Home - GoodViews{% endblock %}<!--title-->
+
+<!--content in between this "block content" and the "endblock" fucntions are displayed on the website as 
+formatted by the base.html as base.html (parent file) calls on this file and dispalys infromation in this file onto the website  -->
 {% block content%}
-
+    <!--keeping information on this page inside a container so that the formatting is consistent with other pages. 
+    Formatting includes things such as margins and placement of teh main body of the page-->
     <div class="container mt-5">
+
+        <!--creating row for introduction-->
         <div class="row">
             <h1><b>Welcome to GoodViews!</b></h1>
             <h5>This is your go-to hub for discovering new movies and TV shows. 
@@ -11,18 +18,19 @@
         without the hassle of creating an account or navigating complicated features. Simply browse our collection, 
         filter by genre or age rating, watch trailers, and get all the key details—from cast lists to runtime—to help you decide what to watch next.</h5>
 
+        <!--creating row for latest films display-->
         <div class="row g-4 mt-3">
-            <h2><b>Latest Films!</b></h2>
+            <h2><b>Latest Films!</b></h2><!--calling films database to display films-->
         {% for x in films %} 
-        <!-- CARD COLUMN -->
+        <!-- CARD COLUMN: creating columns for cards and their placements -->
         <div class="col">
-            <!-- Clickable Card targeting modal by ID -->
+            <!-- Clickable Card targeting modal by ID: creating cards with poster and name of film to be shown and to be able to be clicked to expand the card and display the modal -->
             <div class="card h-100 shadow-sm custom-card" 
                 data-bs-toggle="modal" 
                 data-bs-target="#filmModal{{ x.id }}" 
                 style="width: 206px;cursor: pointer;"
                 > 
-            
+            <!--displaying the poster and film title. Uses dynamic functions (x.film) to adapt to database changes and create cards without manual work-->
             <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.films }}" style="width: 200px; object-fit: cover;">
             <div class="card-body text-center">    
                 <h5 class="card-title m-0"><b>{{ x.films }}</b></h5>
@@ -30,20 +38,20 @@
             </div>
         </div>
 
-        <!-- LARGE POP-UP MODAL -->
+        <!-- LARGE POP-UP MODAL: once clicked on card, it expands and displays a modal where the trailer of the film and other information can be seen -->
         <div class="modal fade" id="filmModal{{ x.id }}" tabindex="-1" aria-labelledby="modalLabel{{ x.id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 
                 <div class="modal-header">
                 <h4 class="modal-title" id="modalLabel{{ x.id }}"><b>{{ x.films }}</b></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><!--close button-->
                 </div>
 
                 <div class="modal-body">
                 <div class="row">
                     
-                    <!-- Trailer Video (Left Side) -->
+                    <!-- Trailer Video (Left Side): Dynamically connects to the trailers of each film for each film's modal and displays the embedded trailer on the left side of the modal-->
                     <div class="col-lg-7 mb-3 mb-lg-0">
                     <div class="ratio ratio-16x9">
                         <iframe 
@@ -58,7 +66,7 @@
                     </div>
                     </div>
 
-                    <!-- Film Information (Right Side) -->
+                    <!-- Film Information (Right Side): dynamically retreives information from the database for individual films and displays them on the right side of the modal -->
                     <div class="col-lg-5">
                     <p><strong>Description:</strong> {{ x.description }}</p>
                     <hr>
@@ -74,26 +82,26 @@
                 </div>
 
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button><!--clos button to go out of the modal back to the rest of the film cards-->
                 </div>
             </div>
             </div>
         </div>
             {% endfor %}
 
-
+        <!--creates a row for lates shows to be displayed-->
         <div class="row g-4 mt-5">
             <h2><b>Latest Shows!</b></h2>
-        {% for x in tv_shows %} 
+        {% for x in tv_shows %} <!--calling tv shows database to display tv shows-->
         <!-- CARD COLUMN -->
         <div class="col">
-            <!-- Clickable Card targeting modal by ID -->
+            <!-- Clickable Card targeting modal by ID: creating cards with poster and name of tv shows to be shown and to be able to be clicked to expand the card and display the modal -->
             <div class="card h-100 shadow-sm custom-card" 
                 data-bs-toggle="modal" 
                 data-bs-target="#tv_showModal{{ x.id }}" 
                 style="width: 206px;cursor: pointer;"
                 > 
-            
+            <!--displaying the poster and show title. Uses dynamic functions (x.tv_shows) to adapt to database changes and create cards without manual work-->
             <img class="card-img-top" src="{{ x.poster }}" alt="{{ x.tv_shows }}" style="width: 200px; object-fit: cover;">
             <div class="card-body text-center">    
                 <h5 class="card-title m-0"><b>{{ x.tv_shows }}</b></h5>
@@ -101,20 +109,20 @@
             </div>
         </div>
 
-        <!-- LARGE POP-UP MODAL -->
+        <!-- LARGE POP-UP MODAL: once clicked on card, it expands and displays a modal where the trailer of the show and other information can be seen -->
         <div class="modal fade" id="tv_showModal{{ x.id }}" tabindex="-1" aria-labelledby="modalLabel{{ x.id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 
                 <div class="modal-header">
                 <h4 class="modal-title" id="modalLabel{{ x.id }}"><b>{{ x.tv_shows }}</b></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><!--close button-->
                 </div>
 
                 <div class="modal-body">
                 <div class="row">
                     
-                    <!-- Trailer Video (Left Side) -->
+                    <!-- Trailer Video (Left Side): Dynamically connects to the trailers of each show for each show's modal and displays the embedded trailer on the left side of the modal-->
                     <div class="col-lg-7 mb-3 mb-lg-0">
                     <div class="ratio ratio-16x9">
                         <iframe 
@@ -129,7 +137,7 @@
                     </div>
                     </div>
 
-                    <!-- Film Information (Right Side) -->
+                    <!-- Show Information (Right Side): dynamically retreives information from the database for individual shows and displays them on the right side of the modal -->
                     <div class="col-lg-5">
                     <p><strong>Description:</strong> {{ x.description }}</p>
                     <hr>
@@ -145,7 +153,7 @@
                 </div>
 
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button><!--clos button to go out of the modal back to the rest of the shows cards-->
                 </div>
 
             </div>

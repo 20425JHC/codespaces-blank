@@ -1,6 +1,6 @@
 from django.db import models
-
-#For the data tables:
+#my code:
+'''Creating tables for the database. Similar to how we do it in sql. Creating data tables and describing which field each item is and any special requirements like an auto increment or integer field. We do this for each table:'''
 #genre table
 class genre(models.Model):
    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')

@@ -1,63 +1,74 @@
+<!-- Calls the static files and lets them be called in the file when called -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
+<!--Linking to files that help display the website and components in it-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>{% block title %}GoodViews{% endblock %}</title> <!--Title-->
     
-    
-    <title>{% block title %}GoodViews{% endblock %}</title>
-    
+    <!--Calling bootstrap to  be able work on this file and the other html files this file is connected to-->
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
+    <!--linking the stylesheet so css can work in this file and the other connected files-->
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 
+    <!--Linking to the Courier Prime Google Font to be used in the website-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     
+    <!--Link to the favicon so the icon in the browser tabs is a logo relevant to the website-->
     <link rel="icon" type="image/" href="{% static 'images/logo.png' %}">
+</head>
 
-
-    </head>
+<!--The main body of the website. This is linked to the other html pages so each page is linked 
+and can be displayed through the use of the base.html and the navbar is accesible in each page-->
 <body class="d-flex flex-column min-vh-100">
 
+    <!--navbar to be accesible and to be able to swicth inbetween pages of the website-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="/static/images/title.png" alt="" height="175">
+                <img src="/static/images/title.png" alt="" height="175"> <!--Title Logo on the top left to go back home-->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav ms-auto gap-5">
+            <ul class="navbar-nav ms-auto gap-5"> <!--unordered list of links to pages-->
                 <li class="nav-item">
-                <a class="nav-link h3" href="/contact_us"><b>Contact Us</b></a>
+                <a class="nav-link h3" href="/contact_us"><b>Contact Us</b></a> <!--link to the contact us page-->
                 </li>
                 <li class="nav-item">
-                <a class="nav-link h3" href="/films"><b>Films</b></a>
+                <a class="nav-link h3" href="/films"><b>Films</b></a> <!--link to the Films page-->
                 </li>
                 <li class="nav-item">
-                <a class="nav-link h3" href="/tv_shows"><b>Shows</b></a>
+                <a class="nav-link h3" href="/tv_shows"><b>Shows</b></a> <!--link to the Shows page-->
                 </li>
             </ul>
             </div>
         </div>
 </nav>
 
-    <main class="flex-grow-1">
-        {% block content %}
-        {% endblock %}
-    </main>
+<!--main part of the different pages are called and displayed depending on the page you are on. 
+Eg: if you are on home page, the code in between the block contect and endblock functions in home.html will be displayed on the home page -->
+<main class="flex-grow-1">
+    {% block content %}
+    {% endblock %}
+</main>
+
 </body>
-    <!-- Footer -->
+
+<!-- Footer -->
 <footer class="text-center text-lg-start bg-body-tertiary mt-5">
 
-  <!-- Section: Links -->
+  <!-- Left section of the footer seperated so information stays on the left in the container-->
   <section class="py-4">
     <div class="container text-center text-md-start">
       <!-- Grid row -->
@@ -73,7 +84,7 @@
           </p>
         </div>
 
-        <!-- Grid column: Links -->
+        <!-- Grid column: Links to different pages so that users can find a page they want -->
         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
           <h6 class="text-uppercase fw-bold mb-4">
             Useful Links
@@ -84,7 +95,7 @@
           <p><a class="text-reset text-decoration-none" href="/tv_shows">TV Shows</a></p>
         </div>
 
-        <!-- Grid column: Contact -->
+        <!-- Grid column: Contact information so that users can contact us if needed -->
         <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
           <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
           <p><i class="fas fa-home me-3"></i> Cinema City, TV 90210</p>
@@ -92,20 +103,15 @@
         </div>
 
       </div>
-      <!-- Grid row -->
+   
     </div>
   </section>
-  <!-- Section: Links -->
 
-  <!-- Copyright -->
+  <!-- Copyright Sentence-->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
     <p class="m-0">&copy; GoodViews. All rights reserved.</p>
   </div>
-  <!-- Copyright -->
 
 </footer>
-<!-- Footer -->
-
-
 
 </html>

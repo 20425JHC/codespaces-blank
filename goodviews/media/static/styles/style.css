@@ -1,26 +1,33 @@
+/*making background of navbar light blue */
 nav{
     background: #c6e3f8;
-    color: #92140C;
 }
 
+/* making all the text in body dark blue and the font courier prime from google fonts*/
 body{
     color: #1D3354;
     font-family: 'Courier Prime', Courier, monospace;
     }
 
+/* making the buttons' background colour light green */
 .btn{
     background: #98CEB5;
 }
+
+/* Making the background colour of the film and show cards light green, adding a border with a witch of 3px and in the colour red */
 .card{
     background: #98CEB5;
     border-color: #92140C;
     border-width: 3px;
 }
+
+/* Making the footer bg colour dark blue and the text white */
 footer{
     background-color: #1D3354;
     color: #ffffff;
 }
 
+/* making the modal container bg colour red and text white */
 .modal-content{
     background-color: #92140C;
     color: #ffffff;

@@ -7,10 +7,11 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'goodviews.settings')
 django.setup()
 
+#my code:
 #import films, tv_shows, age_rating and genre from csv files
 from media.models import age_rating, films, genre, tv_shows
 
-#Importing data functions for each table:
+'''Importing data functions for each table. We do this by explaining the file path to get to the needed file, and what data to retreive. Example: "id=row['id']" means in the age_rating csv file retreive data in the id column as id". '''
 #age rating:
 def import_age_rating(file_path):
     with open(file_path, 'r') as file:
@@ -83,7 +84,7 @@ def import_tv_shows(file_path):
     print("✓ TV shows imported!")
 
 
-#execution:
+'''execution of the importing data code for each csv file to retrieve the data and run the functions coded above:'''
 if __name__ == '__main__':
     import_age_rating('age_rating.csv')
     import_genre('genre.csv')
